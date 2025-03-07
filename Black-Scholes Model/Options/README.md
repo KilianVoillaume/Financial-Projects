@@ -1,13 +1,40 @@
-# Options Visualizer
-## Description
-The Options Greeks Visualizer is an interactive web application built with Streamlit that helps traders and finance professionals visualize how option Greeks (Delta, Gamma, Theta, Vega, and Rho) change based on various input parameters. This tool provides a comprehensive view of option pricing dynamics using the Black-Scholes model with dividend adjustments.
+# Option Payoff Visualization
+
+This repository contains a Python script to visualize the payoffs of different option strategies, including long and short calls and puts. The script calculates and plots the payoff diagrams to help understand option pricing and risk.
 
 ## Features
-Real-time calculation of option prices and Greeks for both call and put options
-Interactive sliders to adjust key parameters:
-- Stock Price
-- Strike Price
-- Time to Expiration
-- Risk-Free Interest Rate
-- Dividend Yield
-- Volatility
+- Computes payoffs for:
+  - Long Call
+  - Short Call
+  - Long Put
+  - Short Put
+- Displays breakeven points on the payoff graphs
+- Uses Matplotlib for visualization
+
+## Requirements
+Make sure you have the following dependencies installed:
+
+```bash
+pip install numpy matplotlib
+```
+
+## Usage
+Clone the repository and run the script:
+```bash
+git clone https://github.com/your-username/option-payoff-visualization.git
+cd option-payoff-visualization
+python option_payoff.py
+```
+
+## Code overview
+The script performs the following tasks:
+1. Defines an opayoff function to compute the payoff of an option contract.
+2. Sets parameters for option pricing, including:
+- Strike price
+- Option premium
+- Range of underlying stock prices
+3. Computes payoffs for different positions (long/short call and put).
+4. Uses Matplotlib to plot the payoff diagrams.
+
+# AUTHOR
+Kilian Voillaume 
