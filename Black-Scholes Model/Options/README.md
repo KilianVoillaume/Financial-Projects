@@ -28,13 +28,13 @@ python option_payoff.py
 
 ## Code overview
 The script performs the following tasks:
-1. Defines an opayoff function to compute the payoff of an option contract.
-2. Sets parameters for option pricing, including:
-  - Strike price
-  - Option premium
-  - Range of underlying stock prices
-3. Computes payoffs for different positions (long/short call and put).
-4. Uses Matplotlib to plot the payoff diagrams.
+- Defines an opayoff function to compute the payoff of an option contract.
+- Sets parameters for option pricing, including:
+  - **Strike price**
+  - **Option premium**
+  - **Range of underlying stock prices**
+- Computes payoffs for different positions (long/short call and put).
+- Uses Matplotlib to plot the payoff diagrams.
 
 # AUTHOR
 Kilian Voillaume 
