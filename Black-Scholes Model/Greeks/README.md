@@ -11,6 +11,7 @@ Interactive sliders to adjust key parameters:
 - Risk-Free Interest Rate
 - Dividend Yield
 - Volatility
+
 Customizable visualization of how option Greeks change for any selected parameter
 Side-by-side comparison of call and put option behaviors
 Educational explanations of each Greek and dividend effects on options
@@ -18,16 +19,16 @@ Vertical display format for clearer comparison of call vs put option metrics
 
 # Installation and Usage
 ## Setup 
-'''bash
+```bash
 # Clone the repository
 git clone https://github.com/yourusername/options-greeks-visualizer.git
 cd options-greeks-visualizer
 
 # Install required packages
 pip install streamlit numpy pandas matplotlib scipy
-'''
+```
 
 ## Launch the app
-'''bash
+```bash
 streamlit run app.py
-'''
+```
