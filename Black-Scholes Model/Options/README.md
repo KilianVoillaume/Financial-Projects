@@ -18,14 +18,6 @@ Make sure you have the following dependencies installed:
 pip install numpy matplotlib
 ```
 
-## Usage
-Clone the repository and run the script:
-```bash
-git clone https://github.com/your-username/option-payoff-visualization.git
-cd option-payoff-visualization
-python option_payoff.py
-```
-
 ## Code overview
 The script performs the following tasks:
 - Defines an opayoff function to compute the payoff of an option contract.
