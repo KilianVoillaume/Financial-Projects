@@ -74,17 +74,6 @@ Foundational references used across this repository include:
 - Bouchaud et al., Market Microstructure and Liquidity
 - Wilmott, Paul Wilmott Introduces Quantitative Finance
 - ...
----
-
-🚧 Notes & Future Work
-This is an ongoing, evolving lab of market exploration. Future additions may include:
-
-A full Greeks risk dashboard for multi-leg portfolios 📊
-Implied volatility surface scraper and model fitting tool 🌍
-Market microstructure simulator using agent-based models 🤖
-Extensions to Heston, SABR, or other stochastic volatility models 🧠
-Risk decomposition by factor or curve exposure 💥
-More content on commodities, FX, and fixed income 🌾📉
 
 ---
 All material is provided for educational and research purposes only. This repository does not constitute financial advice or a recommendation to trade any financial instrument. ⚠️
