@@ -116,7 +116,7 @@ for param_value in param_values:
     params[variable_param] = param_value
     price_values.append(black_scholes_price(option_type, **params))
 
-fig, ax = plt.subplots(figsize=(10, 6))
+fig, ax = plt.subplots(figsize=(8, 5))
 ax.plot(param_range, price_values, label="Option Price", color='blue')
 ax.set_xlabel(x_label)
 ax.set_ylabel("Option Price ($)")
