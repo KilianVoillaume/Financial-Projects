@@ -1,4 +1,4 @@
-# 📐 Options Greeks – 2D & 3D Visualizer Suite
+# Options Greeks – 2D & 3D Visualizer Suite
 
 A collection of Python scripts that graphically explore the core sensitivities (Greeks) of European options using both 2D and 3D plots. These tools are designed to build deep visual intuition around Delta, Gamma, Theta, Vega, and Rho — across different market scenarios.
 
@@ -17,24 +17,24 @@ Each script is self-contained and focuses on a single Greek, making it ideal for
 
 ---
 
-## ✨ Included Visualizers
+## Included Visualizers
 
-### 🟢 Delta
+### Delta
 - `Delta_2D.py`: Delta for calls and puts across stock prices, for different volatilities
 - `Delta_3D.py`: Delta surfaces vs stock price and time to maturity
 
-### 🔴 Gamma
+### Gamma
 - `Gamma_2D.py`: Gamma across stock prices at different volatilities
 - `Gamma_3D.py`: Gamma surface vs stock price and time to maturity
 
-### 🟡 Theta
+### Theta
 - `Theta_2D.py`: Theta decay for calls and puts across stock prices and volatilities
 
-### 🔵 Vega
+### Vega
 - `Vega_2D.py`: Vega curve for different volatilities vs stock prices
 - `Vega_3D.py`: Vega surface over stock price and time to maturity
 
-### 🟣 Rho
+### Rho
 - `Rho_3D.py`: Rho surface for both call and put options vs time and stock price
 
 ---
