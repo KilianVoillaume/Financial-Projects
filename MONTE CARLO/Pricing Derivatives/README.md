@@ -1,4 +1,4 @@
-# 🧮 Monte Carlo Option Pricing – Basic & Antithetic Variates
+# Monte Carlo Option Pricing – Basic & Antithetic Variates
 
 A two-part Python toolkit for pricing European options via Monte Carlo simulation, including a baseline implementation and a variance reduction technique using Antithetic Variates for improved accuracy and convergence.
 
@@ -17,7 +17,7 @@ This project includes:
 
 ## ✨ Tools Included
 
-### 🧾 `MC_Options_Pricing_BASIC.py`
+### `MC_Options_Pricing_BASIC.py`
 - Simulates option prices under the geometric Brownian motion model.
 - Implements:
   - A **slow loop-based** Monte Carlo estimate
@@ -30,7 +30,7 @@ This project includes:
   - Option price convergence
   - Standard deviation regions vs theoretical and market value
 
-### ⚖️ `MC_Variance_Reduction_Antithetic_Variates.py`
+### `MC_Variance_Reduction_Antithetic_Variates.py`
 - Uses **Antithetic Variates** to reduce variance in Monte Carlo estimates
 - Compares:
   - Standard Monte Carlo vs. Antithetic-enhanced results
