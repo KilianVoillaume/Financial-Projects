@@ -1,4 +1,4 @@
-# 🎲 Monte Carlo Simulation Toolkit for Financial Markets
+# Monte Carlo Simulation Toolkit for Financial Markets
 
 A curated set of Python scripts exploring the application of Monte Carlo methods in finance — from basic option pricing to portfolio simulation and risk quantification.
 
@@ -10,7 +10,7 @@ This mini-collection demonstrates how Monte Carlo simulations can be used to mod
 
 ---
 
-## 🧰 Scripts Included
+## Scripts Included
 
 - **MC_Options_Pricing_BASIC.py**  
   A basic Monte Carlo implementation for pricing European call options under geometric Brownian motion.
@@ -26,7 +26,7 @@ This mini-collection demonstrates how Monte Carlo simulations can be used to mod
 
 ---
 
-## 🎯 Purpose
+## Purpose
 
 These scripts provide a hands-on illustration of:
 - Random walk dynamics in asset pricing
