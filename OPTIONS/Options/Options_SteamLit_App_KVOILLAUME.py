@@ -3,7 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import scipy.stats as stats
 
-st.set_page_config(page_title="Options Price Visualizer")
+st.set_page_config(page_title="Options Price Visualizer", layout="wide")
 
 def calculate_d1(S, K, T, r, sigma):
     return (np.log(S / K) + (r + 0.5 * sigma**2) * T) / (sigma * np.sqrt(T))
