@@ -1,21 +1,11 @@
-# Sidebar inputs - keep these as they were
-st.sidebar.header("Input Parameters")
-option_type = st.sidebar.selectbox("Option Type", ["Call", "Put"])
-
-S = st.sidebar.slider("Stock Price ($)", 50.0, 150.0, 100.0, 1.0)
-K = st.sidebar.slider("Strike Price ($)", 50.0, 150.0, 100.0, 1.0)
-T = st.sidebar.slider("Time to Expiration (Years)", 0.01, 10.0, 1.0, 0.01)
-r = st.sidebar.slider("Risk-Free Interest Rate (%)", 0.0, 10.0, 5.0, 0.25) / 100
-sigma = st.sidebar.slider("Volatility (%)", 5.0, 100.0, 20.0, 1.0) / 100
-
-current_price = black_scholes_price(option_type, S, K, T, r, sigma)import streamlit as st
+import streamlit as st
 import numpy as np
 import matplotlib.pyplot as plt
 import scipy.stats as stats
 
 st.set_page_config(page_title="Options Price Visualizer", layout="wide")
 
-# CSS to reduce spacing
+# Custom CSS to reduce spacing
 st.markdown("""
 <style>
     .block-container {
@@ -49,13 +39,27 @@ def black_scholes_price(option_type, S, K, T, r, sigma):
     
     return price
 
+# Sidebar inputs
+st.sidebar.header("Input Parameters")
+option_type = st.sidebar.selectbox("Option Type", ["Call", "Put"])
+
+S = st.sidebar.slider("Stock Price ($)", 50.0, 150.0, 100.0, 1.0)
+K = st.sidebar.slider("Strike Price ($)", 50.0, 150.0, 100.0, 1.0)
+T = st.sidebar.slider("Time to Expiration (Years)", 0.01, 10.0, 1.0, 0.01)
+r = st.sidebar.slider("Risk-Free Interest Rate (%)", 0.0, 10.0, 5.0, 0.25) / 100
+sigma = st.sidebar.slider("Volatility (%)", 5.0, 100.0, 20.0, 1.0) / 100
+
+current_price = black_scholes_price(option_type, S, K, T, r, sigma)
+
+# Display current option price in the first column to save vertical space
 st.title("Options Price Visualizer", anchor=False)
 
+# Use columns for the current price to save vertical space
 curr_price_col1, curr_price_col2 = st.columns([2, 3])
 with curr_price_col1:
     st.metric("Current Option Price", f"${current_price:.2f}")
 
-# Visualization section
+# Use columns to make the visualization section more compact
 col1, col2 = st.columns([1, 3])
 
 with col1:
@@ -103,35 +107,22 @@ else:  # Volatility
 
 price_values = []
 for param_value in param_values:
-    params = {
-        "S": fixed_params[0],
-        "K": fixed_params[1],
-        "T": fixed_params[2],
-        "r": fixed_params[3],
-        "sigma": fixed_params[4] if variable_param != "sigma" else param_value
-    }
-    
     if variable_param == "S":
-        S_val = param_value
-        price = black_scholes_price(option_type, S_val, K, T, r, sigma)
+        price = black_scholes_price(option_type, param_value, K, T, r, sigma)
     elif variable_param == "K":
-        K_val = param_value
-        price = black_scholes_price(option_type, S, K_val, T, r, sigma)
+        price = black_scholes_price(option_type, S, param_value, T, r, sigma)
     elif variable_param == "T":
-        T_val = param_value
-        price = black_scholes_price(option_type, S, K, T_val, r, sigma)
+        price = black_scholes_price(option_type, S, K, param_value, r, sigma)
     elif variable_param == "r":
-        r_val = param_value
-        price = black_scholes_price(option_type, S, K, T, r_val, sigma)
+        price = black_scholes_price(option_type, S, K, T, param_value, sigma)
     else:  # sigma
-        sigma_val = param_value
-        price = black_scholes_price(option_type, S, K, T, r, sigma_val)
+        price = black_scholes_price(option_type, S, K, T, r, param_value)
     
     price_values.append(price)
 
 with col2:
     # Create a smaller figure with adjusted figsize
-    fig, ax = plt.subplots(figsize=(6, 3))  # Reduced height even more
+    fig, ax = plt.subplots(figsize=(6, 3))  # Reduced height
     ax.plot(param_range, price_values, label="Option Price", color='blue')
     ax.set_xlabel(x_label)
     ax.set_ylabel("Option Price ($)")
