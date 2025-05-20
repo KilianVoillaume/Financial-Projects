@@ -49,6 +49,7 @@ The repository spans a wide range of market-relevant themes, including:
   - Stochastic processes (Brownian motion, jump diffusion)
   - Analytical vs. numerical solution methods
 
+- **...and more...**
 ---
 
 ## 🛠 Structure & Usage
@@ -72,7 +73,7 @@ Foundational references used across this repository include:
 - Gatheral, The Volatility Surface
 - Bouchaud et al., Market Microstructure and Liquidity
 - Wilmott, Paul Wilmott Introduces Quantitative Finance
-
+- ...
 ---
 
 🚧 Notes & Future Work
