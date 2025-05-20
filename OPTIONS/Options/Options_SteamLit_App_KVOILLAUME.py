@@ -3,24 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import scipy.stats as stats
 
-st.set_page_config(page_title="Options Price Visualizer", layout="wide")
-
-# Custom CSS to reduce spacing
-st.markdown("""
-<style>
-    .block-container {
-        padding-top: 1rem;
-        padding-bottom: 0rem;
-    }
-    h1, h2, h3 {
-        margin-top: 0.5rem;
-        margin-bottom: 0.5rem;
-    }
-    .stMetric {
-        padding: 0.5rem;
-    }
-</style>
-""", unsafe_allow_html=True)
+st.set_page_config(page_title="Options Price Visualizer")
 
 def calculate_d1(S, K, T, r, sigma):
     return (np.log(S / K) + (r + 0.5 * sigma**2) * T) / (sigma * np.sqrt(T))
@@ -136,14 +119,6 @@ for param_value in param_values:
     
     price_values.append(price)
     
-fig, ax = plt.subplots(figsize=(6, 3))  # Reduced height
-ax.plot(param_range, price_values, label="Option Price", color='blue')
-ax.set_xlabel(x_label)
-ax.set_ylabel("Option Price ($)")
-ax.set_title(f"{option_type} Option: Effect of {param_to_visualize}", fontsize=10)
-ax.legend()
-ax.grid(True)
-
 # Mark the current parameter value with a vertical line
 if param_to_visualize == "Stock Price":
     current_value = S
@@ -156,20 +131,23 @@ elif param_to_visualize == "Interest Rate":
 else:  # Volatility
     current_value = sigma * 100  # Convert back to percentage for display
 
+fig, ax = plt.subplots(figsize=(6, 3))  # Reduced height
+ax.plot(param_range, price_values, label="Option Price", color='blue')
+ax.set_xlabel(x_label)
+ax.set_ylabel("Option Price ($)")
+ax.set_title(f"{option_type} Option: Effect of {param_to_visualize}", fontsize=10)
+ax.legend()
+ax.grid(True)
 ax.axvline(x=current_value, color='r', linestyle='--', alpha=0.5)
+st.pyplot(fig)
 
 # Add a container with a custom height to limit the vertical space
 st.header("Understanding Option Price", anchor=False)
-with st.container():
-    st.markdown("""
-    <div style="font-size: 0.9em;">
-    <p>The Black-Scholes model calculates the theoretical price of an option using various parameters:</p>
-    <ul>
-    <li><strong>Stock Price (S):</strong> Higher stock price increases call option value and decreases put option value.</li>
-    <li><strong>Strike Price (K):</strong> Higher strike price decreases call option value and increases put option value.</li>
-    <li><strong>Time to Expiration (T):</strong> More time generally increases option prices due to increased uncertainty.</li>
-    <li><strong>Interest Rate (r):</strong> Higher rates increase call option value and decrease put option value.</li>
-    <li><strong>Volatility (σ):</strong> Higher volatility increases both call and put option prices.</li>
-    </ul>
-    </div>
-    """, unsafe_allow_html=True)
+st.markdown("""
+The Black-Scholes model calculates the theoretical price of an option using various parameters:
+- **Stock Price (S):** Higher stock price increases the value of call options and decreases the value of put options.
+- **Strike Price (K):** Higher strike price decreases call option value and increases put option value.
+- **Time to Expiration (T):** More time to expiration generally increases the option price due to increased uncertainty.
+- **Interest Rate (r):** Higher interest rates increase the value of call options and decrease the value of put options.
+- **Volatility (σ):** Higher volatility increases both call and put option prices, as larger price swings increase the probability of the option finishing in the money.
+""")
