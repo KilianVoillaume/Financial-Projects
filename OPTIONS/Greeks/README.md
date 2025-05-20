@@ -35,4 +35,5 @@ Vega	Sensitivity to volatility	Peaks at ATM
 Rho	Sensitivity to interest rate	Positive for calls, negative for puts
 
 ---
-## These scripts are intended for educational use only. Trading options carries significant risk and requires a solid understanding of market mechanics. ⚠️
+
+*These tools are intended for educational and demonstration purposes. They are based on theoretical pricing models and simplified assumptions.* ⚠️
