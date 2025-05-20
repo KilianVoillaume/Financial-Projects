@@ -1,4 +1,4 @@
-# 🧮 Options Greeks Visualizer – Python Series
+# Options Greeks Visualizer – Python Series
 
 A set of five Python scripts to visualise how each of the key options Greeks behaves across different market conditions — using the Black-Scholes model.
 
