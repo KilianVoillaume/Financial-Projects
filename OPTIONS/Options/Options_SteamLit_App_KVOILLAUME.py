@@ -32,6 +32,19 @@ This app visualizes how the Black-Scholes option price changes based on various 
 - Volatility
 """)
 
+st.sidebar.markdown(
+    """
+    <div style='margin-bottom: 25px;'>
+        <span style='font-weight: bold; font-size: 18px;'>Created by:</span><br>
+        <a href='https://www.linkedin.com/in/kilian-voillaume-880a9217a/' target='_blank' style='text-decoration: none; display: flex; align-items: center; gap: 12px; margin-top: 8px;'>
+            <img src='https://cdn-icons-png.flaticon.com/512/174/174857.png' width='32' height='32'/>
+            <span style='color: #0A66C2; font-size: 18px; font-weight: bold;'>Kilian Voillaume</span>
+        </a>
+    </div>
+    """,
+    unsafe_allow_html=True
+)
+
 # Sidebar inputs
 st.sidebar.header("Input Parameters")
 option_type = st.sidebar.selectbox("Option Type", ["Call", "Put"])
