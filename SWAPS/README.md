@@ -17,13 +17,13 @@ These models are designed for educational and exploratory use, combining theoret
 - **MC_barrier_simulation.py**  
   Simulates and visualises up-and-out barrier options using Monte Carlo methods.
 
-- **structured_payoff_diagram.py**  
+- **Structured_payoff_diagram.py**  
   Graphs payoff profiles for structured products like reverse convertibles, autocallables, and capital-protected notes.
 
-- **swap_valuation_sensitivity.py**  
+- **Swap_valuation_sensitivity.py**  
   Shows how interest rate shifts affect fixed/floating legs in swaps, with dynamic PV analysis under different yield curve scenarios.
 
-- **vega_exposure.py**  
+- **Vega_exposure.py**  
   Visualises vega and gamma exposure for options near a barrier, with emphasis on convexity and risk zones.
 
 ---
