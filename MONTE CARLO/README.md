@@ -4,6 +4,12 @@ A curated set of Python scripts exploring the application of Monte Carlo methods
 
 ---
 
+##📘 **Related Article:**  
+See the full write-up and explanation in the companion article  
+👉 [Financial_Market_Uncovered_Article5_Risk_Measurement](https://github.com/KilianVoillaume/Financial_Market_Uncovered_Articles)
+
+---
+
 ## 🔍 Overview
 
 This mini-collection demonstrates how Monte Carlo simulations can be used to model uncertainty, forecast distributions, and estimate prices or risk in a range of financial contexts. The tools are designed for both educational and analytical purposes, showing both foundational logic and practical enhancements like variance reduction or statistical interpretation.
