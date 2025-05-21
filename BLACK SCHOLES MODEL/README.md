@@ -4,6 +4,12 @@ A collection of Python tools to compute, validate, and visualise option prices u
 
 ---
 
+📘 **Related Article:**  
+See the full write-up and explanation in the companion article  
+👉 [Financial_Market_Uncovered_Article2_Black_Scholes_Model](https://github.com/KilianVoillaume/Financial_Market_Uncovered_Articles)
+
+---
+
 ## 🔍 Overview
 
 This suite includes three distinct modules that explore the mechanics and behavior of European options pricing under the Black-Scholes framework. These tools are designed to support both theoretical validation and intuitive understanding of how inputs like time to maturity, volatility, interest rate, and dividends affect option value.
