@@ -76,4 +76,4 @@ Foundational references used across this repository include:
 - ...
 
 ---
-All material is provided for educational and research purposes only. This repository does not constitute financial advice or a recommendation to trade any financial instrument. ⚠️
+*All material is provided for educational and research purposes only. This repository does not constitute financial advice or a recommendation to trade any financial instrument.* ⚠️
