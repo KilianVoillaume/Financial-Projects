@@ -4,6 +4,12 @@ A set of Python tools exploring different dimensions of volatility in financial 
 
 ---
 
+## 📘 **Related Articles:**  
+See two full write-ups and explanations in the following articles  
+👉 [Financial_Market_Uncovered_Article4_Decoding_Volatility](https://github.com/KilianVoillaume/Financial_Market_Uncovered_Articles)
+👉 [Financial_Market_Uncovered_Article6_Forecasting_volatility](https://github.com/KilianVoillaume/Financial_Market_Uncovered_Articles)
+
+---
 ## 🔍 Overview
 
 This codebase is dedicated to understanding, measuring, and forecasting volatility. Each script focuses on a specific aspect of volatility, using both empirical data and theoretical models to extract insight into market dynamics.
