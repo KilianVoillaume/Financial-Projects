@@ -7,6 +7,7 @@ A set of Python tools exploring different dimensions of volatility in financial 
 ## 📘 **Related Articles:**  
 See two full write-ups and explanations in the following articles  
 👉 [Financial_Market_Uncovered_Article4_Decoding_Volatility](https://github.com/KilianVoillaume/Financial_Market_Uncovered_Articles)
+
 👉 [Financial_Market_Uncovered_Article6_Forecasting_volatility](https://github.com/KilianVoillaume/Financial_Market_Uncovered_Articles)
 
 ---
