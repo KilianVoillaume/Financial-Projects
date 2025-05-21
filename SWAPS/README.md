@@ -4,6 +4,12 @@ A collection of Python tools designed to simulate, value, and visualise complex 
 
 ---
 
+📘 **Related Article:**  
+See the full write-up and explanation in the companion article  
+👉 [Financial_Market_Uncovered_Article9_Swaps_and_Structured_Derivatives](https://github.com/KilianVoillaume/Financial_Market_Uncovered_Articles)
+
+---
+
 ## 🔍 Overview
 
 This repository brings together several independent, yet thematically connected scripts that explore the behaviour and risk dynamics of structured products, exotic options, and swaps. Each script is focused on a specific concept — from barrier option path simulations to swap sensitivity and vega risk around barriers.
