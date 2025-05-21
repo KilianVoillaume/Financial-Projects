@@ -1,4 +1,4 @@
-# 💼 Advanced Derivatives & Structured Products Toolkit
+# Advanced Derivatives & Structured Products Toolkit
 
 A collection of Python tools designed to simulate, value, and visualise complex derivative instruments and structured financial products.
 
