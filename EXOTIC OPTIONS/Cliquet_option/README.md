@@ -15,7 +15,7 @@ Cliquet options are path-dependent products that accumulate a series of capped/f
 - **MonteCarlo_final_distribution_cliquet.py**  
   Simulates and compares the final payoff distributions of vanilla call options and cliquet options using 12-month Monte Carlo paths, showing how local caps/floors and global constraints reshape the distribution and reduce volatility.
 
-- **cumulative_payoff_with_without_floor.py**  
+- **Cumulative_payoff_with_without_floor.py**  
   Tracks a single 5-year asset path with annual resets to visualise the difference between raw returns and capped/floored returns over time, including detailed charts of per-period return truncation and cumulative payoff differences.
 
 ---
