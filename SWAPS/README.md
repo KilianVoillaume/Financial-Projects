@@ -4,7 +4,7 @@ A collection of Python tools designed to simulate, value, and visualise complex 
 
 ---
 
-📘 **Related Article:**  
+## 📘 **Related Article:**  
 See the full write-up and explanation in the companion article  
 👉 [Financial_Market_Uncovered_Article9_Swaps_and_Structured_Derivatives](https://github.com/KilianVoillaume/Financial_Market_Uncovered_Articles)
 
