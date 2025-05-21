@@ -4,7 +4,7 @@ A curated set of Python scripts exploring the application of Monte Carlo methods
 
 ---
 
-##📘 **Related Article:**  
+## 📘 **Related Article:**  
 See the full write-up and explanation in the companion article  
 👉 [Financial_Market_Uncovered_Article5_Risk_Measurement](https://github.com/KilianVoillaume/Financial_Market_Uncovered_Articles)
 
