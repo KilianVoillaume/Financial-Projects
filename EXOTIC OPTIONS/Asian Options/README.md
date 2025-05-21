@@ -1,4 +1,4 @@
-# 🧮 Asian Options & Averaging Dynamics
+# Asian Options & Averaging Dynamics
 
 A collection of Python scripts to explore and visualise how **Asian options** behave compared to vanilla options — with a focus on volatility sensitivity, payoff structures, and the averaging process under Monte Carlo simulations.
 
