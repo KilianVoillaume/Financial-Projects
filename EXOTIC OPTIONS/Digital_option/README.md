@@ -16,10 +16,10 @@ Digital options offer fixed payouts if the underlying finishes in the money, mak
 
 ## 📘 Scripts Included
 
-- **payoff_digital_vanilla.py**  
+- **Dayoff_digital_vanilla.py**  
   Compares net payoffs of a digital call and a vanilla call across a range of spot prices, with clear illustrations of premium, fixed payoff, and break-even points.
 
-- **delta_vs_spot_price.py**  
+- **Delta_vs_spot_price.py**  
   Visualises the extreme sensitivity of digital option delta near the strike and simulates the instability in delta hedging as time to maturity shrinks, showcasing why digital options can be difficult to manage dynamically.
 
 ---
