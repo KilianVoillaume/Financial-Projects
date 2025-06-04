@@ -1,4 +1,4 @@
-# 📈 Black-Scholes Pricing & Sensitivity Visualizer Suite
+# Black-Scholes Pricing & Sensitivity Visualizer Suite
 
 A collection of Python tools to compute, validate, and visualise option prices using the Black-Scholes model — with a focus on parameter sensitivity and pricing intuition.
 
