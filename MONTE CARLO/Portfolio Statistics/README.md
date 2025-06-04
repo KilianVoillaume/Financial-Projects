@@ -1,4 +1,4 @@
-# 🎲 Monte Carlo Portfolio Simulation & Risk Metrics
+# Monte Carlo Portfolio Simulation & Risk Metrics
 
 A pair of Python-based tools for simulating multi-asset stock portfolios using Monte Carlo techniques — with a focus on forward-looking distribution analysis and tail risk measurement via VaR and CVaR.
 
