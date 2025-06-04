@@ -1,4 +1,4 @@
-# 📦 OPTIONS – Core Pricing, Greeks & Hedging Toolkit
+# OPTIONS – Core Pricing, Greeks & Hedging Toolkit
 
 This directory gathers a series of self-developed Python tools to explore the foundational mechanics of **options pricing**, **sensitivity analysis (Greeks)**, and **risk management through hedging**.
 
