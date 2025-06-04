@@ -1,4 +1,4 @@
-# 🧪 EXOTIC OPTIONS – Simulation & Pricing Toolkit
+# EXOTIC OPTIONS – Simulation & Pricing Toolkit
 
 This directory brings together multiple Python-based tools for modelling, simulating, and visualising the behavior of **exotic options** — derivatives whose payoffs depend on paths, conditions, or exotic features beyond standard vanilla contracts.
 
