@@ -1,4 +1,4 @@
-# 🧾 Interest Rate Models & Term Structure Analysis
+# Interest Rate Models & Term Structure Analysis
 
 A set of Python tools designed to simulate, calibrate, and visualise interest rate dynamics and forward rate term structures using models like Vasicek, CIR, Hull-White, HJM, and LMM.
 
