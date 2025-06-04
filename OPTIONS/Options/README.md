@@ -1,4 +1,4 @@
-# 💹 Options Pricing & Payoff Visualizers
+# Options Pricing & Payoff Visualizers
 
 Two complementary Python tools designed to demystify options pricing and payoff mechanics — using both static and interactive visualisations.
 
