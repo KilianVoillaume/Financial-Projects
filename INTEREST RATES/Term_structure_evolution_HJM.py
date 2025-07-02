@@ -4,14 +4,13 @@ from matplotlib import cm
 from matplotlib.animation import FuncAnimation
 from mpl_toolkits.mplot3d import Axes3D
 
-# Set random seed for reproducibility
 np.random.seed(42)
 
-dt = 0.01  # Time step
-T_max = 10.0  # Max maturity
-t_max = 5.0  # Max simulation time
-num_T = 100  # Points in maturity dimension
-num_t = int(t_max / dt)  # Number of time steps
+dt = 0.01
+T_max = 10.0  
+t_max = 5.0  
+num_T = 100  
+num_t = int(t_max / dt) 
 num_paths = 1 
 
 t_grid = np.linspace(0, t_max, num_t)
