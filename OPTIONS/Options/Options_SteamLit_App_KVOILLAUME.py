@@ -125,11 +125,13 @@ if param_to_visualize == "Stock Price":
 elif param_to_visualize == "Strike Price":
     current_value = K
 elif param_to_visualize == "Time to Expiration":
-    current_value = T * 365  # Convert back to days for display
+    current_value = T * 365
 elif param_to_visualize == "Interest Rate":
-    current_value = r * 100  # Convert back to percentage for display
-else:  # Volatility
-    current_value = sigma * 100  # Convert back to percentage for display
+    current_value = r * 100
+elif param_to_visualize == "Volatility":
+    current_value = sigma * 100
+else:
+    raise ValueError(f"Unknown parameter: {param_to_visualize!r}")
 
 fig, ax = plt.subplots(figsize=(6, 3))  # Reduced height
 ax.plot(param_range, price_values, label="Option Price", color='blue')
@@ -138,8 +140,14 @@ ax.set_ylabel("Option Price ($)")
 ax.set_title(f"{option_type} Option: Effect of {param_to_visualize}", fontsize=10)
 ax.legend()
 ax.grid(True)
-ax.axvline(x=current_value, color='r', linestyle='--', alpha=0.5)
-st.pyplot(fig)
+
+# always highlight strike
+ax.axvline(x=K,color='r',linestyle='--',alpha=0.5,label="Strike Price")
+
+# then, if you also want to highlight the swept parameter:
+if param_to_visualize != "Strike Price":ax.axvline(x=current_value,color='g',linestyle=':',alpha=0.7,label=f"Current {param_to_visualize}"
+                                                  )
+ax.legend()st.pyplot(fig)
 
 # Add a container with a custom height to limit the vertical space
 st.header("Understanding Option Price", anchor=False)
