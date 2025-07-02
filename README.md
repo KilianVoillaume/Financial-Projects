@@ -1,4 +1,4 @@
-# 🧠 Financial Market Notebooks
+# Financial Market Notebooks
 
 A personal collection of Python notebooks and visual tools exploring advanced concepts in financial markets — from options and Greeks to volatility, swaps, credit, and market microstructure.
 
