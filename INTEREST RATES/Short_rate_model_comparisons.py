@@ -9,7 +9,6 @@ sns.set_context("talk")
 plt.rcParams['figure.figsize'] = (14, 10)
 plt.rcParams['lines.linewidth'] = 2.5
 
-# Set random seed for reproducibility
 np.random.seed(42)
 
 T = 10.0         # Tears
@@ -17,14 +16,13 @@ N = 1000
 dt = T / N       
 paths = 5      
 
-r0 = 0.03        # Initial short rate 
-kappa = 0.5      # Mean reversion speed
-theta = 0.05     # Long-term mean rate 
-sigma = 0.02     # Volatility
+r0 = 0.03       
+kappa = 0.5      
+theta = 0.05     
+sigma = 0.02     
 
 time_grid = np.linspace(0, T, N+1)
 
-# Sample paths for the Vasicek model
 def vasicek_model(r0, kappa, theta, sigma, T, N, paths):
     dt = T / N
     r = np.zeros((paths, N+1))
@@ -36,7 +34,6 @@ def vasicek_model(r0, kappa, theta, sigma, T, N, paths):
             r[i, t+1] = r[i, t] + dr
     return r
 
-# Sample paths for the CIR model
 def cir_model(r0, kappa, theta, sigma, T, N, paths):
     dt = T / N
     r = np.zeros((paths, N+1))
@@ -48,7 +45,6 @@ def cir_model(r0, kappa, theta, sigma, T, N, paths):
             r[i, t+1] = max(r[i, t] + dr, 0)  # Ensure rates don't go negative
     return r
 
-# Function for Hull-White with time-dependent drift
 def hull_white_model(r0, kappa, sigma, T, N, paths):
     dt = T / N
     r = np.zeros((paths, N+1))
@@ -69,7 +65,6 @@ def hull_white_model(r0, kappa, sigma, T, N, paths):
             r[i, t+1] = r[i, t] + dr
     return r, theta_values
 
-# Sample paths
 vasicek_paths = vasicek_model(r0, kappa, theta, sigma, T, N, paths)
 cir_paths = cir_model(r0, kappa, theta, sigma, T, N, paths)
 hull_white_paths, hw_theta = hull_white_model(r0, kappa, sigma, T, N, paths)
@@ -175,7 +170,7 @@ plt.show()
 
 plt.figure(figsize=(14, 8))
 
-# Rolling volatility to show different volatility behaviors
+
 window = 50  # Rolling window size
 v_vol = np.zeros((paths, N-window+1))
 c_vol = np.zeros((paths, N-window+1))
