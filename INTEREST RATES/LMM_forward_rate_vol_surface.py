@@ -6,7 +6,6 @@ from scipy.interpolate import griddata
 from mpl_toolkits.mplot3d import Axes3D
 from matplotlib import cm
 
-# Set random seed for reproducibility
 np.random.seed(42)
 
 class LMMCalibration:
@@ -36,13 +35,8 @@ class LMMCalibration:
     def lmm_implied_vol(self, params, maturity, strike, forward_rate):
         beta, a, b, c, d = params
         
-        # Simplified LMM implied vol calculation      
         inst_vol = self.vol_param(params, maturity, strike, forward_rate)
-        
-        # For simplicity, we're using a formula that approximates the effect of the volatility smile in the LMM
         smile_adjustment = 1 + c * ((strike / forward_rate - 1.0) ** 2)
-        
-        # Decay factor to represent mean reversion effect on term structure
         decay_factor = (1 - np.exp(-beta * maturity)) / (beta * maturity) if beta > 0.001 else 1.0
         
         return inst_vol * decay_factor * smile_adjustment
@@ -50,7 +44,7 @@ class LMMCalibration:
     def calibration_error(self, params):
         beta, a, b, c, d = params
         
-        # Ensure parameters are in reasonable ranges
+        # Reasonable ranges
         if beta < 0 or a < 0 or a > 1:
             return 1e10      
         errors = []
@@ -96,7 +90,6 @@ class LMMCalibration:
         
         X, Y = np.meshgrid(self.strikes, self.maturities)
         
-        # Surface plot
         surf = ax.plot_surface(X, Y, vols, cmap=cm.coolwarm, alpha=0.8, 
                                linewidth=0, antialiased=True)
         
@@ -149,11 +142,9 @@ class LMMCalibration:
         return fig
 
 def create_synthetic_market_data():
-    # Maturities (years) and strikes
     maturities = np.linspace(0.5, 10, 20)
     strikes = np.linspace(0.01, 0.06, 15)
     
-    # Synthetic vol surface with smile and term structure
     market_vols = np.zeros((len(maturities), len(strikes)))
     
     a_market = 0.2
@@ -180,7 +171,6 @@ def create_synthetic_market_data():
     return maturities, strikes, market_vols
 
 
-# Function to demonstrate LMM calibration to caplet volatilities
 def main(): 
     print("Generating synthetic market data...")
     maturities, strikes, market_vols = create_synthetic_market_data()
@@ -194,41 +184,33 @@ def main():
     
     model_vols = lmm.get_model_vols()
     
-    # Calculate calibration error
     mse = np.mean((model_vols - market_vols)**2)
     print(f"Mean squared calibration error: {mse:.8f}")
     
-    # Market volatility surface
     fig_market = lmm.plot_vol_surface(market_vols, "Market Implied Volatility Surface")
     fig_market.savefig("market_vol_surface.png", dpi=300, bbox_inches='tight')
     
-    # Model volatility surface
     fig_model = lmm.plot_vol_surface(model_vols, "LMM Calibrated Volatility Surface")
     fig_model.savefig("lmm_vol_surface.png", dpi=300, bbox_inches='tight')
     
-    # Volatility heat maps
     fig_heat_market = lmm.plot_vol_heatmap(market_vols, "Market Implied Volatility Heatmap")
     fig_heat_market.savefig("market_vol_heatmap.png", dpi=300, bbox_inches='tight')
     
     fig_heat_model = lmm.plot_vol_heatmap(model_vols, "LMM Calibrated Volatility Heatmap")
     fig_heat_model.savefig("lmm_vol_heatmap.png", dpi=300, bbox_inches='tight')
     
-    # Vomparison of slices
     fig_comparison = lmm.plot_vol_comparison(model_vols)
     fig_comparison.savefig("vol_comparison.png", dpi=300, bbox_inches='tight')
     
-    # Calibration results
     error_matrix = np.abs(model_vols - market_vols)
     max_error = np.max(error_matrix)
     avg_error = np.mean(error_matrix)
     print(f"Maximum calibration error: {max_error:.6f}")
     print(f"Average calibration error: {avg_error:.6f}")
     
-    # Summary table for selected maturities
     selected_mats = [1, 3, 5, 10]
     mat_indices = [np.abs(maturities - mat).argmin() for mat in selected_mats]
     
-    # Forward rates
     forward_rates = 0.03 + 0.005 * np.sqrt(maturities)
     
     print("\nVolatility smile at selected maturities:")
