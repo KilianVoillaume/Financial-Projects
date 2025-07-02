@@ -145,9 +145,9 @@ ax.grid(True)
 ax.axvline(x=K,color='r',linestyle='--',alpha=0.5,label="Strike Price")
 
 # then, if you also want to highlight the swept parameter:
-if param_to_visualize != "Strike Price":ax.axvline(x=current_value,color='g',linestyle=':',alpha=0.7,label=f"Current {param_to_visualize}"
-                                                  )
-ax.legend()st.pyplot(fig)
+if param_to_visualize != "Strike Price":ax.axvline(x=current_value,color='g',linestyle=':',alpha=0.7,label=f"Current {param_to_visualize}")
+ax.legend()
+st.pyplot(fig)
 
 # Add a container with a custom height to limit the vertical space
 st.header("Understanding Option Price", anchor=False)
