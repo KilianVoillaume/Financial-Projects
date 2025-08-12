@@ -153,20 +153,6 @@ with col4:
     st.metric("📉 Theta", f"{theta:.4f}")
     st.metric("🌊 Vega", f"{vega:.4f}")
 
-# Greeks explanation
-with st.expander("📚 Understanding the Greeks", expanded=False):
-    st.markdown("""
-    **Delta (Δ):** Price sensitivity to underlying asset price changes. Range: Call [0,1], Put [-1,0]
-    
-    **Gamma (Γ):** Rate of change of Delta. Higher Gamma = more Delta sensitivity
-    
-    **Theta (Θ):** Time decay - how much option loses value per day. Usually negative
-    
-    **Vega (ν):** Sensitivity to volatility changes (per 1% volatility change)
-    
-    **Rho (ρ):** Sensitivity to interest rate changes (per 1% rate change)
-    """)
-
 # Enhanced visualization section
 st.header("📊 Comprehensive Sensitivity Analysis")
 
@@ -330,22 +316,6 @@ for bar, value in zip(bars, greeks_values):
     greeks_ax.text(bar.get_x() + bar.get_width()/2., height + (0.01 if height >= 0 else -0.01),
                    f'{value:.4f}', ha='center', va='bottom' if height >= 0 else 'top', 
                    fontweight='bold', fontsize=9)
-
-# Summary statistics
-summary_ax.axis('off')
-summary_text = f"""
-📊 OPTION SUMMARY | {option_type.upper()} | {moneyness}
-
-💰 PRICING: Option=${current_price:.3f} | Intrinsic=${intrinsic_value:.3f} | Time Value=${time_value:.3f}
-📈 RISK METRICS: Delta={delta:.4f} | Gamma={gamma:.6f} | Theta={theta:.4f}/day
-🌊 VOLATILITY: Vega={vega:.4f} per 1% vol change | Current Vol={sigma*100:.1f}%
-💸 BREAK-EVEN: {"${:.2f}".format(K + current_price if option_type == "Call" else K - current_price)}
-⏰ TIME DECAY: ${abs(theta):.4f} per day | {T*365:.0f} days remaining
-"""
-
-summary_ax.text(0.02, 0.5, summary_text, transform=summary_ax.transAxes, 
-                fontsize=11, verticalalignment='center', fontfamily='monospace',
-                bbox=dict(boxstyle="round,pad=1", facecolor='lightblue', alpha=0.8))
 
 plt.tight_layout()
 plt.subplots_adjust(top=0.93, bottom=0.05, hspace=0.3, wspace=0.25)
