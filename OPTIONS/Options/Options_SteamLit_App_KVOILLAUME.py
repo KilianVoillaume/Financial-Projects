@@ -95,7 +95,6 @@ st.sidebar.markdown(
 st.sidebar.header("📊 Option Parameters")
 
 # Preset scenarios
-st.sidebar.subheader("🎛️ Quick Presets")
 preset = st.sidebar.selectbox("Choose Scenario:", 
     ["Custom", "At-The-Money", "Deep ITM Call", "Deep OTM Call", "High Volatility", "Near Expiration"])
 
