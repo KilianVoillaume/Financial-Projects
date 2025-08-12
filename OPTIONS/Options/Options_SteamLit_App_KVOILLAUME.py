@@ -156,34 +156,24 @@ with col4:
 # Enhanced visualization section
 st.header("📊 Comprehensive Sensitivity Analysis")
 
-# Create the main figure with better styling
-fig = plt.figure(figsize=(20, 16))
-fig.patch.set_facecolor('white')
+# Create two separate figure sections for better proportions
+st.subheader("Parameter Sensitivity Charts")
+
+# First row of charts
+fig1, axes1 = plt.subplots(1, 3, figsize=(15, 5))
+fig1.patch.set_facecolor('white')
+
+# Second row of charts  
+fig2, axes2 = plt.subplots(1, 2, figsize=(10, 5))
+fig2.patch.set_facecolor('white')
 
 # Define custom colors
 colors = {
     'price': '#1f77b4',
-    'current': '#2ca02c',
+    'current': '#2ca02c', 
     'strike': '#d62728',
     'zero': '#808080'
 }
-
-# Create subplots with custom layout
-gs = fig.add_gridspec(3, 3, height_ratios=[1, 1, 0.6], width_ratios=[1, 1, 1])
-
-axes = []
-axes.append(fig.add_subplot(gs[0, 0]))  # Stock Price
-axes.append(fig.add_subplot(gs[0, 1]))  # Strike Price  
-axes.append(fig.add_subplot(gs[0, 2]))  # Time to Expiration
-axes.append(fig.add_subplot(gs[1, 0]))  # Interest Rate
-axes.append(fig.add_subplot(gs[1, 1]))  # Volatility
-
-# Greeks summary subplot
-greeks_ax = fig.add_subplot(gs[1, 2])
-summary_ax = fig.add_subplot(gs[2, :])
-
-fig.suptitle(f'{option_type} Option Analysis - {moneyness} (S=${S:.1f}, K=${K:.1f})', 
-             fontsize=18, fontweight='bold', y=0.95)
 
 # Define parameters with enhanced ranges
 parameters = [
@@ -224,41 +214,26 @@ parameters = [
     }
 ]
 
-# Plot each parameter effect with enhanced styling
-for i, param_info in enumerate(parameters):
-    ax = axes[i]
+# Plot first 3 parameters
+for i in range(3):
+    param_info = parameters[i]
+    ax = axes1[i]
     param_range = param_info['range']
     
     price_values = []
-    delta_values = []
     
     for param_value in param_range:
         if param_info['param'] == 'S':
             price = black_scholes_price(option_type, param_value, K, T, r, sigma)
-            delta_temp, _, _, _, _ = calculate_greeks(option_type, param_value, K, T, r, sigma)
         elif param_info['param'] == 'K':
             price = black_scholes_price(option_type, S, param_value, T, r, sigma)
-            delta_temp, _, _, _, _ = calculate_greeks(option_type, S, param_value, T, r, sigma)
         elif param_info['param'] == 'T':
             if param_value/365 > 0.001:  # Avoid division by zero
                 price = black_scholes_price(option_type, S, K, param_value/365, r, sigma)
-                delta_temp, _, _, _, _ = calculate_greeks(option_type, S, K, param_value/365, r, sigma)
             else:
                 price = intrinsic_value
-                delta_temp = 1.0 if option_type == "Call" and S > K else 0.0
-        elif param_info['param'] == 'r':
-            price = black_scholes_price(option_type, S, K, T, param_value/100, sigma)
-            delta_temp, _, _, _, _ = calculate_greeks(option_type, S, K, T, param_value/100, sigma)
-        elif param_info['param'] == 'sigma':
-            if param_value/100 > 0.001:  # Avoid division by zero
-                price = black_scholes_price(option_type, S, K, T, r, param_value/100)
-                delta_temp, _, _, _, _ = calculate_greeks(option_type, S, K, T, r, param_value/100)
-            else:
-                price = intrinsic_value
-                delta_temp = 1.0 if option_type == "Call" and S > K else 0.0
         
         price_values.append(price)
-        delta_values.append(delta_temp)
     
     # Plot option price
     ax.plot(param_range, price_values, color=colors['price'], linewidth=2.5, 
@@ -272,9 +247,9 @@ for i, param_info in enumerate(parameters):
                 linewidth=1.5, label="Intrinsic Value")
     
     # Styling
-    ax.set_xlabel(param_info['xlabel'], fontsize=11, fontweight='bold')
-    ax.set_ylabel("Price ($)", fontsize=11, fontweight='bold')
-    ax.set_title(f"Effect of {param_info['name']}", fontsize=12, fontweight='bold', pad=10)
+    ax.set_xlabel(param_info['xlabel'], fontsize=10, fontweight='bold')
+    ax.set_ylabel("Price ($)", fontsize=10, fontweight='bold')
+    ax.set_title(f"Effect of {param_info['name']}", fontsize=11, fontweight='bold', pad=10)
     ax.grid(True, alpha=0.3, linestyle='-', linewidth=0.5)
     
     # Current value line
@@ -290,37 +265,89 @@ for i, param_info in enumerate(parameters):
     ax.axhline(y=0, color=colors['zero'], linestyle='-', alpha=0.3, linewidth=1)
     
     # Legend
-    ax.legend(fontsize=9, loc='best', framealpha=0.9)
+    ax.legend(fontsize=8, loc='best', framealpha=0.9)
     
     # Remove top and right spines
     ax.spines['top'].set_visible(False)
     ax.spines['right'].set_visible(False)
-    ax.spines['left'].set_linewidth(1.2)
-    ax.spines['bottom'].set_linewidth(1.2)
 
-# Greeks visualization
+fig1.suptitle(f'{option_type} Option Analysis - {moneyness} (S=${S:.1f}, K=${K:.1f})', 
+              fontsize=14, fontweight='bold', y=1.02)
+plt.tight_layout()
+st.pyplot(fig1)
+
+# Plot last 2 parameters
+for i in range(2):
+    param_info = parameters[i+3]
+    ax = axes2[i]
+    param_range = param_info['range']
+    
+    price_values = []
+    
+    for param_value in param_range:
+        if param_info['param'] == 'r':
+            price = black_scholes_price(option_type, S, K, T, param_value/100, sigma)
+        elif param_info['param'] == 'sigma':
+            if param_value/100 > 0.001:  # Avoid division by zero
+                price = black_scholes_price(option_type, S, K, T, r, param_value/100)
+            else:
+                price = intrinsic_value
+        
+        price_values.append(price)
+    
+    # Plot option price
+    ax.plot(param_range, price_values, color=colors['price'], linewidth=2.5, 
+            label="Option Price", alpha=0.9)
+    
+    # Styling
+    ax.set_xlabel(param_info['xlabel'], fontsize=10, fontweight='bold')
+    ax.set_ylabel("Price ($)", fontsize=10, fontweight='bold')
+    ax.set_title(f"Effect of {param_info['name']}", fontsize=11, fontweight='bold', pad=10)
+    ax.grid(True, alpha=0.3, linestyle='-', linewidth=0.5)
+    
+    # Current value line
+    ax.axvline(x=param_info['current'], color=colors['current'], linestyle=':', 
+               alpha=0.8, linewidth=2.5, label=f"Current")
+    
+    # Zero line
+    ax.axhline(y=0, color=colors['zero'], linestyle='-', alpha=0.3, linewidth=1)
+    
+    # Legend
+    ax.legend(fontsize=8, loc='best', framealpha=0.9)
+    
+    # Remove top and right spines
+    ax.spines['top'].set_visible(False)
+    ax.spines['right'].set_visible(False)
+
+plt.tight_layout()
+st.pyplot(fig2)
+
+# Greeks visualization in a separate section
+st.subheader("Greeks Analysis")
+
+fig3, ax_greeks = plt.subplots(1, 1, figsize=(10, 4))
+fig3.patch.set_facecolor('white')
+
 greeks_names = ['Delta', 'Gamma', 'Theta', 'Vega', 'Rho']
 greeks_values = [delta, gamma, theta, vega, rho]
 colors_greeks = ['#ff7f0e', '#2ca02c', '#d62728', '#9467bd', '#8c564b']
 
-bars = greeks_ax.bar(greeks_names, greeks_values, color=colors_greeks, alpha=0.7, edgecolor='black', linewidth=1)
-greeks_ax.set_title('Current Greeks Values', fontsize=12, fontweight='bold', pad=10)
-greeks_ax.set_ylabel('Greek Value', fontsize=11, fontweight='bold')
-greeks_ax.grid(True, alpha=0.3, axis='y')
-greeks_ax.spines['top'].set_visible(False)
-greeks_ax.spines['right'].set_visible(False)
+bars = ax_greeks.bar(greeks_names, greeks_values, color=colors_greeks, alpha=0.7, edgecolor='black', linewidth=1)
+ax_greeks.set_title('Current Greeks Values', fontsize=12, fontweight='bold', pad=15)
+ax_greeks.set_ylabel('Greek Value', fontsize=11, fontweight='bold')
+ax_greeks.grid(True, alpha=0.3, axis='y')
+ax_greeks.spines['top'].set_visible(False)
+ax_greeks.spines['right'].set_visible(False)
 
 # Add value labels on bars
 for bar, value in zip(bars, greeks_values):
     height = bar.get_height()
-    greeks_ax.text(bar.get_x() + bar.get_width()/2., height + (0.01 if height >= 0 else -0.01),
+    ax_greeks.text(bar.get_x() + bar.get_width()/2., height + (0.01 if height >= 0 else -0.01),
                    f'{value:.4f}', ha='center', va='bottom' if height >= 0 else 'top', 
                    fontweight='bold', fontsize=9)
 
 plt.tight_layout()
-plt.subplots_adjust(top=0.93, bottom=0.05, hspace=0.3, wspace=0.25)
-
-st.pyplot(fig)
+st.pyplot(fig3)
 
 # Risk Analysis Section
 st.header("⚠️ Risk Analysis")
