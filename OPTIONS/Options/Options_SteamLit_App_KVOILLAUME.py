@@ -65,14 +65,12 @@ def get_moneyness(S, K):
         return "OTM", "red"
 
 def calculate_intrinsic_value(option_type, S, K):
-    """Calculate intrinsic value"""
     if option_type == "Call":
         return max(0, S - K)
     else:
         return max(0, K - S)
 
 def get_scenario_parameters(preset, option_type):
-    """Get scenario parameters based on preset and option type"""
     if preset == "At-The-Money":
         return 100.0, 100.0, 0.25, 5.0, 20.0
     elif preset == "Deep ITM":
@@ -144,7 +142,6 @@ r = st.sidebar.slider("Risk-Free Interest Rate (%)", 0.0, 15.0, default_r, 0.25,
 sigma = st.sidebar.slider("Volatility (%)", 5.0, 100.0, default_sigma, 1.0,
                          help="Implied volatility of the underlying asset") / 100
 
-# Show scenario explanation
 if preset != "Custom":
     with st.sidebar.expander("📋 Scenario Details", expanded=False):
         if preset == "Deep ITM":
@@ -166,14 +163,12 @@ if preset != "Custom":
                 st.write(f"• Stock: ${S:.0f} > Strike: ${K:.0f}")
                 st.write("• Low probability of profit, high time decay")
 
-# Calculate current metrics
 current_price = black_scholes_price(option_type, S, K, T, r, sigma)
 delta, gamma, theta, vega, rho = calculate_greeks(option_type, S, K, T, r, sigma)
 intrinsic_value = calculate_intrinsic_value(option_type, S, K)
 time_value = current_price - intrinsic_value
 moneyness, moneyness_color = get_moneyness(S, K)
 
-# Main dashboard
 col1, col2, col3, col4 = st.columns(4)
 
 with col1:
@@ -203,7 +198,7 @@ colors = {
     'zero': '#808080'
 }
 
-# Parameters for sensitivity analysis
+# Sensitivity analysis
 parameters = [
     {
         'name': 'Stock Price',
@@ -320,7 +315,6 @@ ax_greeks.grid(True, alpha=0.3, axis='y')
 ax_greeks.spines['top'].set_visible(False)
 ax_greeks.spines['right'].set_visible(False)
 
-# Add value labels on bars
 for bar, value in zip(bars, greeks_values):
     height = bar.get_height()
     ax_greeks.text(bar.get_x() + bar.get_width()/2., height + (0.01 if height >= 0 else -0.01),
@@ -404,6 +398,5 @@ with st.expander("🎓 Trading Strategies & Insights", expanded=False):
 
 st.info("💡 **Pro Tip:** The scenarios now adapt to your option type! Try switching between Call and Put to see how Deep ITM/OTM scenarios change.")
 
-# Footer
 st.markdown("---")
 st.markdown("*This tool is for educational purposes only. Always consult with a financial advisor before making investment decisions.*")
