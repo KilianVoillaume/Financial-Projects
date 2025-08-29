@@ -71,6 +71,27 @@ def calculate_intrinsic_value(option_type, S, K):
     else:
         return max(0, K - S)
 
+def get_scenario_parameters(preset, option_type):
+    """Get scenario parameters based on preset and option type"""
+    if preset == "At-The-Money":
+        return 100.0, 100.0, 0.25, 5.0, 20.0
+    elif preset == "Deep ITM":
+        if option_type == "Call":
+            return 120.0, 100.0, 0.5, 5.0, 25.0  # Stock price > Strike (ITM for calls)
+        else:  # Put
+            return 80.0, 100.0, 0.5, 5.0, 25.0   # Stock price < Strike (ITM for puts)
+    elif preset == "Deep OTM":
+        if option_type == "Call":
+            return 90.0, 110.0, 0.25, 5.0, 30.0  # Stock price < Strike (OTM for calls)
+        else:  # Put
+            return 110.0, 90.0, 0.25, 5.0, 30.0  # Stock price > Strike (OTM for puts)
+    elif preset == "High Volatility":
+        return 100.0, 100.0, 1.0, 5.0, 50.0
+    elif preset == "Near Expiration":
+        return 105.0, 100.0, 0.027, 5.0, 25.0  # ~10 days
+    else:  # Custom
+        return 100.0, 100.0, 1.0, 5.0, 20.0
+
 st.title("🎯 Professional Options Analyzer")
 st.markdown("""
 **Comprehensive Black-Scholes analysis with Greeks, risk metrics, and sensitivity visualization**
@@ -92,26 +113,25 @@ st.sidebar.markdown(
 
 st.sidebar.header("📊 Option Parameters")
 
-# Preset scenarios
-preset = st.sidebar.selectbox("Choose Scenario:", 
-    ["Custom", "At-The-Money", "Deep ITM Call", "Deep OTM Call", "High Volatility", "Near Expiration"])
-
-# Default values
-default_S, default_K, default_T, default_r, default_sigma = 100.0, 100.0, 1.0, 5.0, 20.0
-
-# Apply presets
-if preset == "At-The-Money":
-    default_S, default_K, default_T, default_r, default_sigma = 100.0, 100.0, 0.25, 5.0, 20.0
-elif preset == "Deep ITM Call":
-    default_S, default_K, default_T, default_r, default_sigma = 120.0, 100.0, 0.5, 5.0, 25.0
-elif preset == "Deep OTM Call":
-    default_S, default_K, default_T, default_r, default_sigma = 90.0, 110.0, 0.25, 5.0, 30.0
-elif preset == "High Volatility":
-    default_S, default_K, default_T, default_r, default_sigma = 100.0, 100.0, 1.0, 5.0, 50.0
-elif preset == "Near Expiration":
-    default_S, default_K, default_T, default_r, default_sigma = 105.0, 100.0, 0.027, 5.0, 25.0  # ~10 days
-
+# Option type selection (moved up to influence scenarios)
 option_type = st.sidebar.selectbox("Option Type", ["Call", "Put"], help="Choose between Call or Put option")
+
+# Preset scenarios with enhanced descriptions
+scenario_descriptions = {
+    "Custom": "Set your own parameters",
+    "At-The-Money": "Stock price equals strike price",
+    "Deep ITM": f"Deep In-The-Money {option_type}",
+    "Deep OTM": f"Deep Out-Of-The-Money {option_type}",
+    "High Volatility": "High implied volatility scenario",
+    "Near Expiration": "Option close to expiration (~10 days)"
+}
+
+preset = st.sidebar.selectbox("Choose Scenario:", 
+    list(scenario_descriptions.keys()),
+    format_func=lambda x: f"{x} - {scenario_descriptions[x]}")
+
+# Get scenario parameters based on option type
+default_S, default_K, default_T, default_r, default_sigma = get_scenario_parameters(preset, option_type)
 
 S = st.sidebar.slider("Stock Price ($)", 50.0, 200.0, default_S, 0.5, 
                      help="Current price of the underlying asset")
@@ -123,6 +143,28 @@ r = st.sidebar.slider("Risk-Free Interest Rate (%)", 0.0, 15.0, default_r, 0.25,
                      help="Current risk-free interest rate") / 100
 sigma = st.sidebar.slider("Volatility (%)", 5.0, 100.0, default_sigma, 1.0,
                          help="Implied volatility of the underlying asset") / 100
+
+# Show scenario explanation
+if preset != "Custom":
+    with st.sidebar.expander("📋 Scenario Details", expanded=False):
+        if preset == "Deep ITM":
+            if option_type == "Call":
+                st.write("✅ **Deep ITM Call:** Stock price significantly above strike price")
+                st.write(f"• Stock: ${S:.0f} > Strike: ${K:.0f}")
+                st.write("• High intrinsic value, high delta")
+            else:
+                st.write("✅ **Deep ITM Put:** Stock price significantly below strike price")
+                st.write(f"• Stock: ${S:.0f} < Strike: ${K:.0f}")
+                st.write("• High intrinsic value, high |delta|")
+        elif preset == "Deep OTM":
+            if option_type == "Call":
+                st.write("❌ **Deep OTM Call:** Stock price significantly below strike price")
+                st.write(f"• Stock: ${S:.0f} < Strike: ${K:.0f}")
+                st.write("• Low probability of profit, high time decay")
+            else:
+                st.write("❌ **Deep OTM Put:** Stock price significantly above strike price")
+                st.write(f"• Stock: ${S:.0f} > Strike: ${K:.0f}")
+                st.write("• Low probability of profit, high time decay")
 
 # Calculate current metrics
 current_price = black_scholes_price(option_type, S, K, T, r, sigma)
@@ -336,31 +378,31 @@ with st.expander("🎓 Trading Strategies & Insights", expanded=False):
     col1, col2 = st.columns(2)
     
     with col1:
-        st.markdown("""
-        **📈 When to Buy This Option:**
-        - High Delta: Directional plays
-        - High Vega: Volatility expansion expected
-        - Low Theta: Limited time decay
+        st.markdown(f"""
+        **📈 When to Buy This {option_type}:**
+        - High Delta: Strong directional exposure
+        - High Vega: Expecting volatility increase
+        - Low Theta: Minimal time decay impact
         
-        **🎯 Optimal Conditions:**
-        - Calls: Bullish outlook + low volatility
-        - Puts: Bearish outlook + low volatility
+        **🎯 Optimal Conditions for {option_type}s:**
+        - {"Bullish outlook + rising volatility" if option_type == "Call" else "Bearish outlook + rising volatility"}
+        - {"Stock breaking above resistance" if option_type == "Call" else "Stock breaking below support"}
         """)
     
     with col2:
         st.markdown("""
         **⚠️ Risk Factors:**
-        - High Theta: Time decay risk
-        - High Vega: Volatility crush risk
-        - Low Delta: Limited directional exposure
+        - High Theta: Accelerating time decay
+        - High Vega: Volatility crush vulnerability  
+        - Low Delta: Limited price sensitivity
         
         **💡 Pro Tips:**
-        - ATM options have highest Gamma
-        - ITM options have higher Delta
-        - Time decay accelerates near expiration
+        - ATM options maximize Gamma exposure
+        - ITM options provide higher Delta
+        - Avoid buying options before earnings (vol crush)
         """)
 
-st.info("💡 **Pro Tip:** Use the parameter sliders to see real-time changes across all metrics. The green dotted lines show your current settings!")
+st.info("💡 **Pro Tip:** The scenarios now adapt to your option type! Try switching between Call and Put to see how Deep ITM/OTM scenarios change.")
 
 # Footer
 st.markdown("---")
