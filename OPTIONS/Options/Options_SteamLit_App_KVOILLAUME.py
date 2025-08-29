@@ -24,7 +24,6 @@ def black_scholes_price(option_type, S, K, T, r, sigma):
     return price
 
 def calculate_greeks(option_type, S, K, T, r, sigma):
-    """Calculate all the Greeks"""
     d1 = calculate_d1(S, K, T, r, sigma)
     d2 = calculate_d2(d1, sigma, T)
     
@@ -57,7 +56,6 @@ def calculate_greeks(option_type, S, K, T, r, sigma):
     return delta, gamma, theta, vega, rho
 
 def get_moneyness(S, K):
-    """Determine if option is ITM, ATM, or OTM"""
     ratio = S / K
     if 0.98 <= ratio <= 1.02:
         return "ATM", "orange"
@@ -152,14 +150,10 @@ with col4:
     st.metric("📉 Theta", f"{theta:.4f}")
     st.metric("🌊 Vega", f"{vega:.4f}")
 
-# Enhanced visualization section with uniform 2x3 layout
 st.header("📊 Comprehensive Analysis")
-
-# Create a single figure with 2x3 subplot layout
 fig, axes = plt.subplots(2, 3, figsize=(18, 10))
 fig.patch.set_facecolor('white')
 
-# Define custom colors
 colors = {
     'price': '#1f77b4',
     'current': '#2ca02c', 
@@ -167,7 +161,7 @@ colors = {
     'zero': '#808080'
 }
 
-# Define parameters for sensitivity analysis
+# Parameters for sensitivity analysis
 parameters = [
     {
         'name': 'Stock Price',
@@ -211,7 +205,7 @@ parameters = [
     }
 ]
 
-# Plot sensitivity analysis for first 5 parameters
+# Sensitivity analysis for first 5 parameters
 for param_info in parameters:
     row, col = param_info['pos']
     ax = axes[row, col]
@@ -239,18 +233,17 @@ for param_info in parameters:
         
         price_values.append(price)
     
-    # Plot option price
+    # Option price
     ax.plot(param_range, price_values, color=colors['price'], linewidth=2.5, 
             label="Option Price", alpha=0.9)
     
-    # Add intrinsic value line for stock price chart
+    # Intrinsic value line for stock price chart
     if param_info['param'] == 'S':
         intrinsic_values = [max(0, (x - K) if option_type == "Call" else (K - x)) 
                           for x in param_range]
         ax.plot(param_range, intrinsic_values, '--', color='purple', alpha=0.6, 
                 linewidth=1.5, label="Intrinsic Value")
     
-    # Styling
     ax.set_xlabel(param_info['xlabel'], fontsize=11, fontweight='bold')
     ax.set_ylabel("Price ($)", fontsize=11, fontweight='bold')
     ax.set_title(f"Effect of {param_info['name']}", fontsize=12, fontweight='bold', pad=10)
@@ -265,13 +258,8 @@ for param_info in parameters:
         ax.axvline(x=K, color=colors['strike'], linestyle='--', alpha=0.6, 
                    linewidth=2, label="Strike Price")
     
-    # Zero line
     ax.axhline(y=0, color=colors['zero'], linestyle='-', alpha=0.3, linewidth=1)
-    
-    # Legend
     ax.legend(fontsize=9, loc='best', framealpha=0.9)
-    
-    # Remove top and right spines
     ax.spines['top'].set_visible(False)
     ax.spines['right'].set_visible(False)
 
@@ -296,18 +284,15 @@ for bar, value in zip(bars, greeks_values):
     ax_greeks.text(bar.get_x() + bar.get_width()/2., height + (0.01 if height >= 0 else -0.01),
                    f'{value:.4f}', ha='center', va='bottom' if height >= 0 else 'top', 
                    fontweight='bold', fontsize=9)
-
-# Rotate x-axis labels for better readability
 ax_greeks.tick_params(axis='x', rotation=45)
 
-# Overall title for the entire figure
 fig.suptitle(f'{option_type} Option Analysis - {moneyness} (S=${S:.1f}, K=${K:.1f})', 
               fontsize=16, fontweight='bold', y=0.98)
 
 plt.tight_layout(rect=[0, 0.03, 1, 0.95])  # Adjust layout to accommodate suptitle
 st.pyplot(fig)
 
-# Risk Analysis Section
+# Risk Analysis 
 st.header("⚠️ Risk Analysis")
 
 col1, col2 = st.columns(2)
@@ -347,7 +332,6 @@ with col2:
         rank_emoji = ["🥇", "🥈", "🥉", "4️⃣"][i]
         st.metric(f"{rank_emoji} {factor}", f"{sensitivity:.4f}")
 
-# Educational section
 with st.expander("🎓 Trading Strategies & Insights", expanded=False):
     col1, col2 = st.columns(2)
     
