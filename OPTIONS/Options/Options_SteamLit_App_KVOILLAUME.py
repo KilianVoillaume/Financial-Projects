@@ -388,13 +388,7 @@ with st.expander("🎓 Trading Strategies & Insights", expanded=False):
         **⚠️ Risk Factors:**
         - High Theta: Accelerating time decay
         - High Vega: Volatility crush vulnerability  
-        - Low Delta: Limited price sensitivity
-        
-        **💡 Pro Tips:**
-        - ATM options maximize Gamma exposure
-        - ITM options provide higher Delta
-        - Avoid buying options before earnings (vol crush)
-        """)
+        - Low Delta: Limited price sensitivity)
 
 st.info("💡 **Pro Tip:** The scenarios now adapt to your option type! Try switching between Call and Put to see how Deep ITM/OTM scenarios change.")
 
