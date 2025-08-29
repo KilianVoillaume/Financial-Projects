@@ -368,29 +368,6 @@ with col2:
         rank_emoji = ["🥇", "🥈", "🥉", "4️⃣"][i]
         st.metric(f"{rank_emoji} {factor}", f"{sensitivity:.4f}")
 
-with st.expander("🎓 Trading Strategies & Insights", expanded=False):
-    col1, col2 = st.columns(2)
-    
-    with col1:
-        st.markdown(f"""
-        **📈 When to Buy This {option_type}:**
-        - High Delta: Strong directional exposure
-        - High Vega: Expecting volatility increase
-        - Low Theta: Minimal time decay impact
-        
-        **🎯 Optimal Conditions for {option_type}s:**
-        - {"Bullish outlook + rising volatility" if option_type == "Call" else "Bearish outlook + rising volatility"}
-        - {"Stock breaking above resistance" if option_type == "Call" else "Stock breaking below support"}
-        """)
-    
-    with col2:
-        st.markdown("""
-        **⚠️ Risk Factors:**
-        - High Theta: Accelerating time decay
-        - High Vega: Volatility crush vulnerability  
-        - Low Delta: Limited price sensitivity)
-
-st.info("💡 **Pro Tip:** The scenarios now adapt to your option type! Try switching between Call and Put to see how Deep ITM/OTM scenarios change.")
 
 st.markdown("---")
 st.markdown("*This tool is for educational purposes only. Always consult with a financial advisor before making investment decisions.*")
